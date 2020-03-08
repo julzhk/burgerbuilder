@@ -24,3 +24,23 @@
     cursor: pointer;
     outline: 2px rebeccapurple;
 }
+
+.OrderButton{
+    background-color: darkcyan;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid saddlebrown;
+    color: sandybrown;
+    font-family: inherit;
+    font-size: 1.2rem;
+    padding: 15px 40px;
+    box-shadow: 2px 2px brown;
+}
+.OrderButton:hover, .OrderButton:active {
+    background-color: beige;
+    border: 1px solid grey;
+    color: #7f3608;
+}
+.OrderButton:disabled {
+    background-color: #702e05;
+}

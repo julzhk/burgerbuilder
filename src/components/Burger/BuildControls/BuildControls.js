@@ -29,6 +29,13 @@ const buildControls = (props) => {
                     )
                 )}
             </div>
+            {!props.purchaseable ?
+                <button
+                    className='OrderButton'
+                    disabled={!props.purchaseable}
+                >Buy NOW</button>
+                : <p>choose first</p>
+            }
         </div>
     )
 
