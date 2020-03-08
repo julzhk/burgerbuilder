@@ -1,0 +1,26 @@
+.BuildControls {
+    width: 100%;
+    background-color: lightgoldenrodyellow;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 1px grey;
+    margin: auto;
+    padding: 10px 0;
+}
+
+.BuildControl {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}
+.BuildControl button {
+    display: block;
+    font: inherit;
+    padding: 5px;
+    margin: 0 5px;
+    width: 80px;
+    border: 1px solid red;
+    cursor: pointer;
+    outline: 2px rebeccapurple;
+}

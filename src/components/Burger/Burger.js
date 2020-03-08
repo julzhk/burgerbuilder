@@ -1,6 +1,8 @@
 import React from 'react';
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
+import classes from './Burger.css'
 
+const klasses = classes
 const Burger = (props) => {
     //get keys of ingredients state object
     let transformedingredients = Object.keys(props.ingredients).map(
@@ -14,14 +16,15 @@ const Burger = (props) => {
 
     console.log(transformedingredients)
     if (transformedingredients.length === 0) {
-        transformedingredients = <p>Please add something yummy!</p>
+        transformedingredients = <p>
+            Please add something yummy!
+        </p>
     }
     return (
         <div className='Burger'>
             <BurgerIngredient type='bread-top'/>
             {transformedingredients}
             <BurgerIngredient type='bread-bottom'/>
-            Your Burger
         </div>
     )
 };
