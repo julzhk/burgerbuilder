@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import Aux from '../hoc/Aux'
 import Burger from "../components/Burger/Burger";
 import BuildControls from '../components/Burger/BuildControls/BuildControls'
+import Modal from '../components/UI/Modal/Modal'
+import OderSummary from '../components/Burger/OrderSummary/OrderSummary'
 
 const INGREDIENT_PRICES = {
     'salad': 3,
@@ -20,18 +22,17 @@ class BurgerBuilder extends Component {
             meat: 0
         },
         totalPrice: 4.00,
-        purchaseable:false
+        purchaseable: false,
+        purchasing: false
     }
-    updatePurchaseableState = (ingredients) =>{
-        const sum = Object.keys(ingredients).map(igKey=>{
+    updatePurchaseableState = (ingredients) => {
+        const sum = Object.keys(ingredients).map(igKey => {
             return ingredients[igKey]
-        }).reduce( (sum, el)=>{
+        }).reduce((sum, el) => {
             return (sum + el)
-        }, 0)
-        console.log(sum)
-        this.setState({purchaseable: (sum >=1)})
+        }, 0);
+        this.setState({purchaseable: (sum >= 1)})
     };
-
 
     addIngredientHandler = (type) => {
         const oldCount = this.state.ingredients[type];
@@ -53,7 +54,7 @@ class BurgerBuilder extends Component {
     removeIngredientHandler = (type) => {
         const oldCount = this.state.ingredients[type];
         const updatedCount = oldCount - 1;
-        if (oldCount <=0){
+        if (oldCount <= 0) {
             return;
         }
         const updatedIngredients = {
@@ -71,15 +72,27 @@ class BurgerBuilder extends Component {
         this.updatePurchaseableState(updatedIngredients)
     }
 
+
+    purchaseHandler = ( ) => {
+        console.log('clkic')
+        this.setState({purchasing: true})
+    }
+
     render() {
         const disableInfo = {
             ...this.state.ingredients
         }
-        for (let key in disableInfo){
-            disableInfo[key] = disableInfo[key] <=0
+        for (let key in disableInfo) {
+            disableInfo[key] = disableInfo[key] <= 0
         }
         return (
             <Aux>
+                <Modal show={this.state.purchasing}>
+                    <div>
+                        <OderSummary ingredients={this.state.ingredients}/>
+                    </div>
+                </Modal>
+
                 <div>
                     <Burger ingredients={this.state.ingredients}/>
                 </div>
@@ -89,7 +102,8 @@ class BurgerBuilder extends Component {
                         ingredientRemoved={this.removeIngredientHandler}
                         disabled={disableInfo}
                         totalPrice={this.state.totalPrice}
-                        purchaseable = {!this.state.purchaseable}
+                        purchaseable={!this.state.purchaseable}
+                        ordered={this.purchaseHandler }
                     />
                 </div>
             </Aux>
