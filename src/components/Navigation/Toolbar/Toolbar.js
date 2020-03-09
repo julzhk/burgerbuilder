@@ -10,7 +10,7 @@ const toolbar = (props) => (
             MENU
         </div>
         <div>
-            <Logo />
+            <Logo height='60px'/>
         </div>
         <nav>
             <NavigationItems/>
