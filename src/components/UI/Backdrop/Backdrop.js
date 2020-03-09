@@ -5,7 +5,9 @@ const klasses = classes
 
 const backdrop = (props) => {
     console.log('bavkdrop')
-    return (props.show ? <div className='Backdrop'>Y {props.show}</div> : <div>N{props.show}</div>)
+    return (props.show ? <div className='Backdrop' onClick={props.clicked}
+    >Y {props.show}
+    </div> : <div>N{props.show}</div>)
 }
 
 
