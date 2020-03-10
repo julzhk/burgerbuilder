@@ -25,3 +25,9 @@
 .Close {
     transform: translateX(-100%);
 }
+
+.Logo {
+    padding-top: 4px;
+    margin-bottom: 33px;
+}
+
