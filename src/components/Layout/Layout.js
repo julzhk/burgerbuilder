@@ -8,15 +8,19 @@ const klasses = classes
 
 class Layout extends Component {
     state = {
-        showSideDrawer : true
+        showSideDrawer : false
     }
     sideDrawClosedHandler = () =>{
         this.setState({showSideDrawer:false})
     }
+    sideDrawToggleHandler = () =>{
+        this.setState( (prevState) => {
+            return ({showSideDrawer:!prevState.showSideDrawer})
+        })}
     render() {
         return (
             <Aux>
-            <Toolbar />
+            <Toolbar toggleSideDraw={this.sideDrawToggleHandler}/>
             <SideDrawer open={this.state.showSideDrawer} closed={this.sideDrawClosedHandler} />
             <div>
                 Toolbar / SideDrawer / Backdrop
