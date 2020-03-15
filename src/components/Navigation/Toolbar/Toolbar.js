@@ -7,11 +7,13 @@ const klasses = classes;
 
 const toolbar = (props) => (
     <header className='Toolbar'>
-        <div onClick={props.toggleSideDraw}>
-            MENU
+        <div className="DrawerToggle" onClick={props.toggleSideDraw}>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-        <div className='Logo' >
-            <Logo />
+        <div className='Logo'>
+            <Logo/>
         </div>
         <nav className='DesktopOnly'>
             <NavigationItems/>
