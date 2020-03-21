@@ -7,7 +7,7 @@ const klasses = classes
 class Modal extends Component  {
     // can use a pure component for
     shouldComponentUpdate(nextProps, nextState) {
-        return(nextProps.show !== this.props.show)
+        return(nextProps.show !== this.props.show || nextProps.children !== this.props.children)
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log('modal updated!')
