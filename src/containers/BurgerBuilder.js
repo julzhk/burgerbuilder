@@ -89,6 +89,10 @@ class BurgerBuilder extends Component {
         this.setState({purchasing: false})
     }
     purchaseContinueHandler = () => {
+        this.props.history.push('/checkout')
+    }
+
+    SENDTOFIREBASEpurchaseContinueHandler = () => {
         this.setState({loading: true})
         const order = {
             ingredients: this.state.ingredients,
