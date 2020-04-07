@@ -2,6 +2,8 @@ import React from 'react';
 import Burger from "../../Burger/Burger";
 import MyButton from '../../UI/Button/Button'
 import classes from './CheckoutSummary.module.css'
+import {Route} from "react-router-dom";
+import ContactData from "../../../containers/Checkout/contactData/contactData";
 
 const checkoutSummary = (props) => {
     console.log(props.ingredients)
