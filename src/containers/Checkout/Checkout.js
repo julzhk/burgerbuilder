@@ -26,16 +26,15 @@ class Checkout extends Component {
         let ingredients = {}
         let price = 0
         for (let param of query.entries()) {
-            if (param[0] === 'price') {
-                let price = param[1]
+            if (param[0] == 'price') {
+                price = +param[1]
             } else {
                 console.log(param)
                 ingredients[param[0]] = +param[1]
             }
-
         }
         console.log(ingredients)
-        this.setState({ingredients: ingredients, price: price})
+        this.setState({ingredients: ingredients, totalPrice: price})
     }
 
     render() {

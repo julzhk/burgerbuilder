@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Button from '../../../components/UI/Button/Button'
-import klasses from './contactData.module.css'
+import classes from './contactData.module.css'
 import axios from "../../../axios-orders";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 
@@ -18,7 +18,7 @@ class ContactData extends Component {
 
     orderHander = (event) => {
         event.preventDefault()
-        console.log(this.props.ingredients)
+        console.log(this.props)
         this.setState({loading: true})
         const order = {
             ingredients: this.props.ingredients,
@@ -33,7 +33,7 @@ class ContactData extends Component {
                 deliveryMethod: 'fastest'
             }
         }
-        axios.post('/orders', order)
+        axios.post('/orders.json', order)
             .then((response) => {
                     this.setState({
                         purchasing: false,
@@ -54,17 +54,17 @@ class ContactData extends Component {
 
     render() {
         let contact_form = <form>
-            <input className={klasses.ContactDataInput} type='text' name='name' placeholder='You'/>
-            <input className={klasses.ContactDataInput} type='text' name='email' placeholder='You@you'/>
-            <input className={klasses.ContactDataInput} type='text' name='street' placeholder='crib'/>
-            <input className={klasses.ContactDataInput} type='text' name='postcode' placeholder='postcode'/>
+            <input className={classes.ContactDataInput} type='text' name='name' placeholder='You'/>
+            <input className={classes.ContactDataInput} type='text' name='email' placeholder='You@you'/>
+            <input className={classes.ContactDataInput} type='text' name='street' placeholder='crib'/>
+            <input className={classes.ContactDataInput} type='text' name='postcode' placeholder='postcode'/>
             <Button btnType='Success' clicked={this.orderHander}>ORDER</Button>
         </form>;
         if (this.state.loading){
             contact_form = <Spinner/>
         }
         return (
-            <div className={klasses.ContactData}>
+            <div className={classes.ContactData}>
                 <h3>Enter your delivery info</h3>
                 {contact_form}
             </div>
