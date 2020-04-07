@@ -35,7 +35,7 @@ class Checkout extends Component {
 
         }
         console.log(ingredients)
-        this.setState({ingredients: ingredients, price:price})
+        this.setState({ingredients: ingredients, price: price})
     }
 
     render() {
@@ -47,7 +47,14 @@ class Checkout extends Component {
                     checkoutCancelled={this.checkoutCancelledHandler}
                     totalPrice={this.state.totalPrice}
                 />
-                <Route path='/checkout/contact-data' component={ContactData}/>
+                <Route path='/checkout/contact-data' render={(props) => (
+                    <ContactData
+                        ingredients={this.state.ingredients}
+                        totalPrice={this.state.totalPrice}
+                        {...props}
+                    />)}
+                />
+                {/*    spread props to pass props.history*/}
             </div>
         )
     }

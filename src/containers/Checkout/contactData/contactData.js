@@ -24,7 +24,7 @@ class ContactData extends Component {
             ingredients: this.props.ingredients,
             price: this.props.totalPrice,
             customer: {
-                name: 'self self',
+                name: 'self self2',
                 address: {
                     street: 'high street',
                     country: 'uk'
@@ -47,9 +47,9 @@ class ContactData extends Component {
                 loading: false
             })
             console.log(error)
-        });
-
-
+        }).finally(
+            this.props.history.push('/')
+        );
     }
 
     render() {
