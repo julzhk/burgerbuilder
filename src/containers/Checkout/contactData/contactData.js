@@ -7,13 +7,51 @@ import Input from '../../../components/UI/Input/Input'
 
 class ContactData extends Component {
     state = {
-        name: '',
-        email: '',
-        address: {
-            street: '',
-            postcode: ''
+        orderForm: {
+            name: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'your name'
+                },
+                value: ''
+            },
+            email: {
+                elementType: 'email',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'your email'
+                },
+                value: ''
+            },
+            street: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'your crib'
+                },
+                value: ''
+            },
+            postcode: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Postcode'
+                },
+                value: ''
+            },
+            deliveryMethod: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [
+                        {value: 'fastest', displayValue: 'fast'},
+                        {value: 'cheapest', displayValue: 'cheapest'},
+                    ]
+                },
+                value: ''
+            }
         },
-        loading:false
+        loading: false
     }
 
     orderHander = (event) => {
@@ -51,16 +89,36 @@ class ContactData extends Component {
             this.props.history.push('/')
         );
     }
+    inputChangedHandler = (event, elementKey) => {
+        console.log(event)
+        console.log(elementKey)
+        //this is a shallow copy!
+        const updatedForm = {...this.state.orderForm}
+        //this is a how to deep copy
+        const updatedFormElement = {...this.state.orderForm[elementKey]}
+        updatedFormElement.value = event.target.value
+        updatedForm[elementKey] = updatedFormElement
+        this.setState({orderForm: updatedForm})
+    }
 
     render() {
+        const formElements = []
+        for (let key in this.state.orderForm) {
+            formElements.push(<Input elementType={this.state.orderForm[key].elementType}
+                                     name={key}
+                                     key={key}
+                                     changed={(event) => {
+                                         this.inputChangedHandler(event, key)
+                                     }}
+                                     value={this.state.orderForm[key].value}
+                                     elementConfig={this.state.orderForm[key].elementConfig}
+            />)
+        }
         let contact_form = <form>
-            <Input inputtype="input" type='text' name='name' placeholder='You'/>
-            <Input inputtype="input" type='email' name='email' placeholder='You@you'/>
-            <Input inputtype="input" type='text' name='street' placeholder='crib'/>
-            <Input inputtype="input" type='text' name='postcode' placeholder='postcode'/>
+            {formElements}
             <Button btnType='Success' clicked={this.orderHander}>ORDER</Button>
         </form>;
-        if (this.state.loading){
+        if (this.state.loading) {
             contact_form = <Spinner/>
         }
         return (
