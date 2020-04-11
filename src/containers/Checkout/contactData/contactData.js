@@ -14,7 +14,12 @@ class ContactData extends Component {
                     type: 'text',
                     placeholder: 'your name'
                 },
-                value: ''
+                value: '',
+                valid: false,
+                touched: false,
+                validation: {
+                    required: true
+                }
             },
             email: {
                 elementType: 'email',
@@ -22,7 +27,13 @@ class ContactData extends Component {
                     type: 'text',
                     placeholder: 'your email'
                 },
-                value: ''
+                value: '',
+                valid: false,
+                touched: false,
+                validation: {
+                    required: true
+                }
+
             },
             street: {
                 elementType: 'input',
@@ -30,7 +41,13 @@ class ContactData extends Component {
                     type: 'text',
                     placeholder: 'your crib'
                 },
-                value: ''
+                value: '',
+                valid: false,
+                touched: false,
+                validation: {
+                    required: true
+                }
+
             },
             postcode: {
                 elementType: 'input',
@@ -38,7 +55,15 @@ class ContactData extends Component {
                     type: 'text',
                     placeholder: 'Postcode'
                 },
-                value: ''
+                value: '',
+                valid: false,
+                touched: false,
+                validation: {
+                    required: true,
+                    minLength: 4,
+                    maxLength: 8
+                }
+
             },
             deliveryMethod: {
                 elementType: 'select',
@@ -48,10 +73,31 @@ class ContactData extends Component {
                         {value: 'cheapest', displayValue: 'cheapest'},
                     ]
                 },
-                value: ''
+                value: 'cheapest',
+                valid: true,
+                touched: false,
+                validation: {}
             }
         },
-        loading: false
+        loading: false,
+        formValid: false
+    }
+
+    checkValidity(value, rules) {
+        let isValid = true
+        console.log(value, rules)
+        if (rules.required) {
+            console.log(value.trim(value))
+            isValid = (value.trim(value) !== '')
+        }
+        if (rules.minLength) {
+            isValid = (value.length >= rules.minLength) && isValid
+        }
+        if (rules.maxLength) {
+            isValid = (value.length <= rules.maxLength) && isValid
+        }
+        console.log(isValid)
+        return isValid
     }
 
     orderHander = (event) => {
@@ -86,15 +132,26 @@ class ContactData extends Component {
         );
     }
     inputChangedHandler = (event, elementKey) => {
-        console.log(event)
-        console.log(elementKey)
         //this is a shallow copy!
         const updatedForm = {...this.state.orderForm}
         //this is a how to deep copy
         const updatedFormElement = {...this.state.orderForm[elementKey]}
         updatedFormElement.value = event.target.value
+        updatedFormElement.touched = true
+        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation)
+        const allValids = []
+        for (let ele in updatedForm) {
+            console.log(ele)
+            allValids.push(updatedForm[ele].valid)
+        }
+        console.log(allValids)
+        const formValid = allValids.every(i => i)
+
         updatedForm[elementKey] = updatedFormElement
-        this.setState({orderForm: updatedForm})
+        this.setState({
+            orderForm: updatedForm,
+            formValid: formValid
+        })
     }
 
     render() {
@@ -107,12 +164,15 @@ class ContactData extends Component {
                                          this.inputChangedHandler(event, key)
                                      }}
                                      value={this.state.orderForm[key].value}
+                                     touched={this.state.orderForm[key].touched}
+                                     valid={this.state.orderForm[key].valid}
                                      elementConfig={this.state.orderForm[key].elementConfig}
             />)
         }
         let contact_form = <form onSubmit={this.orderHander}>
+            {this.state.formValid ? 'VALID form' : 'invalid form'}
             {formElements}
-            <Button btnType='Success'>ORDER</Button>
+            <Button btnType='Success' disabled={!this.state.formValid}>ORDER</Button>
         </form>;
         if (this.state.loading) {
             contact_form = <Spinner/>

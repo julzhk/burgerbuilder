@@ -24,3 +24,8 @@
     outline: none;
     background-color: lightsteelblue;
 }
+
+.Invalid {
+    background-color: lightcoral;
+    color: lightcoral;
+}
